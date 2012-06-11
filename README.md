@@ -1,7 +1,7 @@
 workhorse
 =========
 
-<p>an MVC framework for web applications based on URI-to-method translation.
+<p>an MVC framework for web applications based on URI-to-method translation.</p>
 
 <p>developed in eight minutes almost a decade ago (2003?), codenamed
 "workhorse," and then abandoned (codeigniter eventually came along and
@@ -19,5 +19,17 @@ subclass of <code>Application</code>.</p>
 object and then run it immediately, however, any amount of processing could have
 been done first -- even with other application objects.</p>
 
-<p>for a robust example, read the source code of the tao demo.</p>
+<p>controllers work by simply naming the methods with the string the client
+is expected to request to invoke the method. e.g. the source code viewer demo
+page, source.php, supports the method "view", making the request URI
+<code>domain.com/path/to/source.php/view</code>, with whatever arguments as may
+be relevant following thereafter. mod_rewrite can be used to prettify the path
+to just <code>source/view</code>. to support this method, source.php creates
+a <code>Source</code> object, which extends <code>Application</code> but also
+has a method declared: <code>public function view($filename)</code>. arguments
+are fed to the function from PATHINFO in the order they appear in the URI.</p>
 
+<p>the tao demo shows an alternative use for the <code>__default</code> handler,
+which will be invoked when the segment of PATHINFO in the URL that is interpreted
+as the method name does not actually name a function that exists in the class (or
+is just not present in the URL).</p>
